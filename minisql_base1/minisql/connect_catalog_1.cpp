@@ -135,6 +135,7 @@ bool  CatlogManage::save(char* filename){//如何写回去？
         //对每一个属性
         while(PAttributeNow!=NULL){
             fwrite(PAttributeNow->AttributeName,1,32*sizeof(char),p);
+            fwrite(&PAttributeNow->offset,1,sizeof(int),p);
             fwrite(&PAttributeNow->DataType,1,sizeof(int),p);
             fwrite(&PAttributeNow->Len,1,sizeof(int),p);
             fwrite(&PAttributeNow->Unique,1,sizeof(int),p);            
@@ -191,6 +192,8 @@ void  CatlogManage::test(char* filename){//
     
     
     strcpy(DBHeader[DBcounter]->FirstTable->FirstAtt->AttributeName,"att name");
+    DBHeader[DBcounter]->FirstTable->FirstAtt->offset = 4;
+    DBHeader[DBcounter]->FirstTable->FirstAtt->offset = 0;
     DBHeader[DBcounter]->FirstTable->FirstAtt->DataType = 3;
     DBHeader[DBcounter]->FirstTable->FirstAtt->Len = 4;
     DBHeader[DBcounter]->FirstTable->FirstAtt->Unique = 0;
@@ -221,6 +224,7 @@ void  CatlogManage::test(char* filename){//
         //对每一个属性
         while(PAttributeNow!=NULL){
             fwrite(PAttributeNow->AttributeName,1,32*sizeof(char),p);
+            fwrite(&PAttributeNow->offset,1,sizeof(int),p);
             fwrite(&PAttributeNow->DataType,1,sizeof(int),p);
             fwrite(&PAttributeNow->Len,1,sizeof(int),p);
             fwrite(&PAttributeNow->Unique,1,sizeof(int),p);
@@ -258,10 +262,11 @@ void  CatlogManage::test(char* filename){//
 //info 以null结尾
 
 bool CatlogManage::CreateTable(char* s_table_name,Property* t_property_group,int property_used){
+    
     int i = 0;
     PTableHeader table = DBHeader[0]->FirstTable;
     PAttribute att = NULL;
-    int rowlen = 0;
+    int rowlen = 0; // rowlen is incremented every time we add an attribute, so offset is equal to it
     
     while(table!=NULL){
         if(!strcmp(table->TableName,s_table_name)){
@@ -283,6 +288,7 @@ bool CatlogManage::CreateTable(char* s_table_name,Property* t_property_group,int
         if(t_property_group[i].is_primary_key==true)
             strcpy(table->PK,t_property_group[i].property_name);
         strcpy(att->AttributeName,t_property_group[i].property_name);
+        att->offset = rowlen;
         att->DataType = t_property_group[i].type; // 用一个字符表示数据类型！！！
         att->Len = t_property_group[i].char_capacity;//一个字符表示数据长度！！！最多256
         rowlen+=att->Len;
@@ -576,7 +582,7 @@ void CatlogManage::show(){
          printf("table:%s,%d,%s,%d,%d\n",table->TableName, table->AttNum,table->PK, table->RowLen,table->RowNum );
         att = table->FirstAtt;
         while(att!=NULL){
-            printf("att:%s,%d, %d, %d\n",att->AttributeName, att->DataType, att->Len, att->Unique);
+            printf("att:%s,%d,%d, %d, %d\n",att->AttributeName, att->offset,att->DataType, att->Len, att->Unique);
             att = att->NextAtt;
         }
         table = table->NextTable;
@@ -591,7 +597,7 @@ void CatlogManage::show(){
 
 }
 
-
+// find the indexe appear in select conditions, return a list
 PINDEX* CatlogManage::GetIndex(char* s_table_name, Condition* t_select_condition, int condition_used){ // 在一句select或delete语句中找到，是否存在的对应的index
     // 输入是表名，条件的属性名，条件的数目
     int i = 0;

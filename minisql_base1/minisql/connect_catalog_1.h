@@ -77,6 +77,7 @@ struct TableHeader{
 
 struct Attribute{
     char AttributeName[32]; // 32 bytes
+    unsigned int offset; // how many bytes from the head of this tuple to this attribute
     unsigned int DataType; //
     unsigned int Len; // length of this attribute, if the attribute is char(n), 2bytes
     unsigned int Unique; //
