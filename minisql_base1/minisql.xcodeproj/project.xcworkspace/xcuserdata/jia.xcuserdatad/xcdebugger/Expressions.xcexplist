@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CatlogManage::Insert(char*, Condition*, int):connect_catalog_1.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "t_select_condition[i]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Interpreter::Match_Create_Table(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;):Interpreter.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "t_property_group[current_property_group_pointer]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CatlogManage::CreateIndex(char*, char*, char*):connect_catalog_1.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "DBHeader[0]-&gt;FirstTable">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CatlogManage::CreateTable(char*, Property*, int):connect_catalog_1.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "t_property_group[i].property_name">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CatlogManage::SelectORDelete(char*, Condition*, int, int):connect_catalog_1.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "t_select_condition[i]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
