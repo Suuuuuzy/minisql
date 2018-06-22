@@ -10,7 +10,7 @@ void move_address(Node * source, int address_index_of_source, Node *destination,
 	if(source->address[address_index_of_source]!=-1 && source->is_bottom==false)
 	{
 		Node * t_1=(Node*)source->address[address_index_of_source];
-		t_1->up_address=(int)destination;
+		t_1->up_address=(long)destination;
 
 	}
 };

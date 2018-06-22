@@ -49,7 +49,7 @@ void Node::DisplayThisKey(short type){
 	std::cout<<"Current root: "<<is_root<< std::endl;
 	std::cout<<"Current bottom: "<<is_bottom<< std::endl;
 	std::cout<<"Up address: "<<up_address<< std::endl;
-	std::cout<<"this address: "<<(int)this<< std::endl;
+	std::cout<<"this address: "<<(long)this<< std::endl;
 	if(is_bottom==true)
 		std::cout<<"Tail record address: "<<address[MAX_KEY_NUMBER]<< std::endl;
 	std::cout<<"Finish to display key value in this node ********"<< std::endl;
@@ -90,7 +90,7 @@ void Node::RecursiveDisplayThisKey(short type,int depth){
 	std::cout<<"Current root: "<<is_root<< std::endl;
 	std::cout<<"Current bottom: "<<is_bottom<< std::endl;
 	std::cout<<"Up address: "<<up_address<< std::endl;
-	std::cout<<"this address: "<<(int)this<< std::endl;
+	std::cout<<"this address: "<<(long)this<< std::endl;
 	if(is_bottom==true)
 		std::cout<<"Tail record address: "<<address[MAX_KEY_NUMBER]<< std::endl;
 	std::cout<<"Finish to display key value in this node ********"<< std::endl;
@@ -210,7 +210,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 				for(int i=original_size;i<MAX_KEY_NUMBER;i++)
 				address[i]=-1;
 				*/
-				new_sibling_left->address[MAX_KEY_NUMBER]=(int)new_sibling_right;
+				new_sibling_left->address[MAX_KEY_NUMBER]=(long)new_sibling_right;
 				new_sibling_right->contain_node=right_size;
 				new_sibling_left->contain_node=left_size;
 				if(insert_in_left==false)
@@ -218,14 +218,14 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 				else
 					new_sibling_left->add_or_split(key_in,type,address_in,test_signal);
 
-				new_sibling_left->up_address=(int)this;
-				new_sibling_right->up_address=(int)this;
+				new_sibling_left->up_address=(long)this;
+				new_sibling_right->up_address=(long)this;
 				new_sibling_left->is_bottom=true;
 				new_sibling_right->is_bottom=true;
 				memset(address,-1,sizeof(int)*(MAX_KEY_NUMBER+1));
 				key[0]=new_sibling_right->key[0];
-				address[0]=(int)new_sibling_left;
-				address[1]=(int)new_sibling_right;
+				address[0]=(long)new_sibling_left;
+				address[1]=(long)new_sibling_right;
 				contain_node=1;
 				if(NODE_DEBUG==1)
 					std::cout<<"ROOT+BOTTOM split finish"<< std::endl;
@@ -314,7 +314,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 					if(address_in!=-1)
 					{
 						Node * t_1=(Node*)address_in;
-						t_1->up_address=(int)new_sibling_right;
+						t_1->up_address=(long)new_sibling_right;
 					}
 				}
 				else
@@ -323,7 +323,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 					if(address_in!=-1)
 					{
 						Node * t_1=(Node*)address_in;
-						t_1->up_address=(int)new_sibling_left;
+						t_1->up_address=(long)new_sibling_left;
 					}
 
 				}
@@ -333,7 +333,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 					if(new_sibling_left->address[new_sibling_left->contain_node]!=-1)
 					{
 						Node * t_1=(Node*)new_sibling_left->address[new_sibling_left->contain_node];
-						t_1->up_address=(int)new_sibling_right;
+						t_1->up_address=(long)new_sibling_right;
 					}
 					new_sibling_left->address[new_sibling_left->contain_node]=-1;
 				}
@@ -349,11 +349,11 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 				else
 					std::cout<<"Inefficient Paramater Setting, please set MAX_KEY_NUMBER as an even "<< std::endl;
 
-				new_sibling_left->up_address=(int)this;
-				new_sibling_right->up_address=(int)this;
+				new_sibling_left->up_address=(long)this;
+				new_sibling_right->up_address=(long)this;
 
-				address[0]=(int)new_sibling_left;
-				address[1]=(int)new_sibling_right;
+				address[0]=(long)new_sibling_left;
+				address[1]=(long)new_sibling_right;
 				/*
 				cout<<endl<<"Test left upper$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"<<endl;
 				for(int i=0;i<new_sibling_left->contain_node+1;i++)
@@ -415,7 +415,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 				for(int i=original_size;i<MAX_KEY_NUMBER;i++)
 					address[i]=-1;
 
-				address[MAX_KEY_NUMBER]=(int)new_sibling;
+				address[MAX_KEY_NUMBER]=(long)new_sibling;
 				new_sibling->contain_node=new_size;
 				new_sibling->up_address=up_address;
 				new_sibling->is_bottom=true;
@@ -439,7 +439,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 				std::cout<<"Finish display upper $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"<< std::endl;
 				}
 				
-				this_root->add_or_split(new_sibling->key[0],type,(int)new_sibling,test_signal);//upword this function in a recurisve way
+				this_root->add_or_split(new_sibling->key[0],type,(long)new_sibling,test_signal);//upword this function in a recurisve way
 				
 				if(test_signal==1)
 				{
@@ -504,7 +504,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 					if(address_in!=-1)
 					{
 						Node * t_1=(Node*)address_in;
-						t_1->up_address=(int)new_sibling;
+						t_1->up_address=(long)new_sibling;
 					}
 
 				}
@@ -524,7 +524,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 					if(address_in!=-1)
 					{
 						Node * t_1=(Node*)address_in;
-						t_1->up_address=(int)this;
+						t_1->up_address=(long)this;
 					}
 
 
@@ -546,7 +546,7 @@ void Node::add_or_split(node_key key_in,short type, int address_in,int test_sign
 
 					Node * this_root=(Node*)up_address;
 					new_sibling->up_address=up_address;///////////////////////////newly changed
-					this_root->add_or_split(key[contain_node-1],type,(int)new_sibling,test_signal);//upword this function in a recurisve way
+					this_root->add_or_split(key[contain_node-1],type,(long)new_sibling,test_signal);//upword this function in a recurisve way
 					
 					move_address(this,contain_node,new_sibling,0);
 					/*
@@ -616,7 +616,7 @@ void Node::delete_or_merge(node_key key_in,short type){
 			int up_pointer=-1;
 			for(int i=0;i<up->contain_node+1;i++)
 			{
-				if(up->address[i]==(int)this)
+				if(up->address[i]==(long)this)
 				{
 					up_pointer=i;
 					break;
@@ -633,11 +633,11 @@ void Node::delete_or_merge(node_key key_in,short type){
 					while(1)
 					{
 						Node * u_c_s_node=(Node *)(c_s_node->up_address);
-						if(u_c_s_node->address[0]!=(int)c_s_node){
+						if(u_c_s_node->address[0]!=(long)c_s_node){
 
 							for(int i=1;i<=u_c_s_node->contain_node;i++)
 							{
-								if(u_c_s_node->address[i]==(int)c_s_node)
+								if(u_c_s_node->address[i]==(long)c_s_node)
 								{
 									u_c_s_node->key[i-1]=key[0];
 									break;
@@ -685,7 +685,7 @@ void Node::delete_or_merge(node_key key_in,short type){
 
 
 
-			int current_address=(int)this;
+			int current_address=(long)this;
 
 			if(up->address[0]!=current_address)
 			{
@@ -968,7 +968,7 @@ void Node::delete_or_merge(node_key key_in,short type){
 							up->DisplayThisKey(type);
 							std::cout<<"Finish to output up"<< std::endl;
 							std::cout<<"Contain node of up: "<<up->contain_node<< std::endl;
-							std::cout<<"Up address: "<<(int)up<< std::endl;
+							std::cout<<"Up address: "<<(long)up<< std::endl;
 
 							std::cout<<"Finish Output the situation after the final merge________________"<< std::endl;
 						}

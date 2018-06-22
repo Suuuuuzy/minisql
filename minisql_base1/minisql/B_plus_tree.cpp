@@ -108,6 +108,7 @@ bool B_plus_tree::DeleteWithKey(node_key key_in,short type){
 		left=head;
 
 	}
+    return  true;
 }
 
 void B_plus_tree::DisplayFromLeftToRight(){
@@ -125,4 +126,7 @@ void B_plus_tree::DisplayFromLeftToRight(){
 		i++;
 	}
 	std::cout<<"Finish : Left To Right Tree &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<std::endl;
+    
+    
+    
 }

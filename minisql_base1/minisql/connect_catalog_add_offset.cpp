@@ -22,7 +22,7 @@
 //待会写一个测试的文件，测试一下
 
 
-#include "connect_catalog_1.h"
+#include "connect_catalog_add_offset.h"
 using namespace std;
 
 //catalog manager直接从文件读数据
@@ -285,14 +285,16 @@ bool CatlogManage::CreateTable(char* s_table_name,Property* t_property_group,int
     table->FirstAtt = att;
     att->NextAtt = NULL;
     while(i<property_used){
-        if(t_property_group[i].is_primary_key==true)
+        att->Unique = t_property_group[i].is_unique; //一个字符表示是否unique 1：unique
+        if(t_property_group[i].is_primary_key==true){
             strcpy(table->PK,t_property_group[i].property_name);
+            att->Unique = 1;// rewrite unique property before when is is pk
+        }
         strcpy(att->AttributeName,t_property_group[i].property_name);
         att->offset = rowlen;
         att->DataType = t_property_group[i].type; // 用一个字符表示数据类型！！！
         att->Len = t_property_group[i].char_capacity;//一个字符表示数据长度！！！最多256
         rowlen+=att->Len;
-        att->Unique = t_property_group[i].is_unique; //一个字符表示是否unique 1：unique
         i++;
         if(i<property_used){
             att->NextAtt = (PAttribute)malloc(sizeof(struct Attribute));

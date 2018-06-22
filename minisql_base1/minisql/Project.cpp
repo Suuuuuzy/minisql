@@ -17,7 +17,12 @@
 int main()
 {
 
+    char* test = "ello";
+    char* test2 = "aou";
+    cout << test-test2 << endl;
+    cout << strcmp(test,test2) << endl;
 
+    
 	Interpreter main;
 	std::string input_string = ("create table student (sno char(8),sname char(16) unique,sage int,sgender char(1),primary key ( sno ));");
 	//std::string input_string = ("execfile a.txt;");

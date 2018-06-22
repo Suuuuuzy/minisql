@@ -4,7 +4,7 @@
 #include<regex>
 #include"Global_definition.h"
 #include<fstream>
-#include"connect_catalog_1.h"
+#include"connect_catalog_add_offset.h"
 
 #define PROPERTY_LENGTH 10000
 #define PROPERTY_MAX  128
